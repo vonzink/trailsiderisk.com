@@ -1,0 +1,440 @@
+<!-- =====================================================================
+     TRAILSIDE RISK PARTNERS &mdash; CONTACT  (paste into a GHL Custom Code / HTML block)
+     Self-contained: all CSS in <style>, all JS in <script>, scoped to .trsp
+     SWAP THESE for your GHL Media Library URLs (find & replace the tokens):
+       https://assets.cdn.filesafe.space/xO8DzIlG1uCraZCpNxzO/media/6a43306d3a7f0c5468a30307.png   = colored logo on light bg   (assets/logo.png)
+       https://assets.cdn.filesafe.space/xO8DzIlG1uCraZCpNxzO/media/6a27199319b4ff338be5c813.png  = white knockout logo         (assets/logo-white.png)
+       https://assets.cdn.filesafe.space/xO8DzIlG1uCraZCpNxzO/media/6a43306d06fe2e51dce41e9b.jpeg = founder headshot 1:1        (assets/aaron.jpeg)
+     FORM: set the <form action> token __GHL_FORM_ACTION__ to your GHL form
+           webhook/endpoint &mdash; OR delete the HTML form and drop a native GHL
+           Form/Survey element in its place (markup is namespaced & swappable).
+     Cross-page links use GHL slugs: / &middot; /about &middot; /services &middot; /contact
+===================================================================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+
+<style>
+/* ============================ TOKENS (scoped) ============================ */
+.trsp{
+  --navy:#16304E; --navy-deep:#0D2236; --navy-mid:#1F4063;
+  --green:#4F7C43; --green-bright:#7BB35F; --green-soft:#9FC28A; --green-pale:#DCECCF;
+  --paper:#FFFFFF; --mist-1:#F4F7F3; --mist-2:#EEF3EA; --line:#E6EBE2;
+  --ink:#42566B; --ink-soft:#5A6B7A; --muted:#7A8794; --muted-2:#8A96A2;
+  --dark-body:#C4D2DD; --dark-faint:#9FB0BD; --err:#C0492F;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  font-family:'Mulish',system-ui,sans-serif;
+  color:var(--navy); line-height:1.6; -webkit-font-smoothing:antialiased;
+  position:relative; width:100%; overflow-x:hidden; display:block;
+}
+.trsp *{box-sizing:border-box; margin:0; padding:0}
+:where(.trsp) a{color:inherit; text-decoration:none}
+.trsp img{display:block; max-width:100%}
+.trsp button{font-family:inherit}
+.trsp ::selection{background:var(--green); color:#fff}
+
+@keyframes trsp-floatY2{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+@keyframes trsp-fadeUp{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+@keyframes trsp-pulse{0%{box-shadow:0 0 0 0 rgba(123,179,95,.55)}70%{box-shadow:0 0 0 7px rgba(123,179,95,0)}100%{box-shadow:0 0 0 0 rgba(123,179,95,0)}}
+
+/* ============================ LAYOUT ============================ */
+.trsp__wrap{position:relative;width:100%;overflow-x:hidden}
+.trsp__inner{max-width:1180px;margin:0 auto;width:100%}
+.trsp__section{padding:110px 48px;position:relative}
+
+/* ============================ EYEBROW / HEADINGS ============================ */
+.trsp__eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.trsp__eyebrow .bar{width:34px;height:2px;background:var(--green);flex:none}
+.trsp__eyebrow .lbl{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green)}
+.trsp__h1{font-family:'Marcellus',serif;font-weight:400;font-size:clamp(40px,5.5vw,72px);line-height:1.02;letter-spacing:-.01em;color:var(--navy);text-wrap:balance}
+.trsp__h2{font-family:'Marcellus',serif;font-weight:400;font-size:clamp(28px,3.4vw,42px);line-height:1.08;letter-spacing:-.01em;color:var(--navy)}
+.trsp__h3{font-family:'Marcellus',serif;font-weight:400;font-size:23px;color:var(--navy)}
+
+/* ============================ BUTTONS ============================ */
+.trsp__btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;font-weight:700;cursor:pointer;border:none;transition:transform .35s var(--ease),box-shadow .35s ease,background .35s ease}
+.trsp__btn svg{display:block}
+.trsp__btn--primary{background:var(--green);color:#fff;font-size:16px;letter-spacing:.02em;padding:18px 34px;border-radius:3px;box-shadow:0 16px 34px -14px rgba(79,124,67,.7)}
+.trsp__btn--primary .ar{transition:transform .35s ease}
+.trsp__btn--primary:hover{transform:translateY(-3px);box-shadow:0 24px 44px -16px rgba(79,124,67,.8)}
+.trsp__btn--primary:hover .ar{transform:translateX(5px)}
+
+/* ============================ NAV ============================ */
+.trsp__nav{position:fixed;top:0;left:0;width:100%;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(255,255,255,0);transition:padding .4s ease,background .4s ease,box-shadow .4s ease,backdrop-filter .4s ease}
+.trsp__nav.is-scrolled{background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 8px 30px -18px rgba(22,48,78,.35);padding:10px 48px}
+.trsp__logo{height:58px;width:auto;transition:height .4s ease}
+.trsp__nav.is-scrolled .trsp__logo{height:46px}
+.trsp__navlinks{display:flex;align-items:center;gap:38px}
+.trsp__navlink{font-size:14px;font-weight:700;letter-spacing:.04em;color:var(--navy);text-transform:uppercase;position:relative;padding:4px 0}
+.trsp__navlink::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--green);transition:width .3s ease}
+.trsp__navlink:hover::after,.trsp__navlink.is-active::after{width:100%}
+.trsp__navcta{display:inline-flex;align-items:center;gap:9px;background:var(--navy);color:#fff;font-size:14px;font-weight:700;letter-spacing:.03em;padding:13px 24px;border-radius:2px;box-shadow:0 8px 22px -10px rgba(22,48,78,.6);transition:transform .3s var(--ease),background .3s ease,box-shadow .3s ease}
+.trsp__navcta:hover{transform:translateY(-2px);background:var(--navy-mid);box-shadow:0 14px 30px -12px rgba(22,48,78,.7)}
+.trsp__navcta .dot{width:7px;height:7px;border-radius:50%;background:var(--green-bright);animation:trsp-pulse 2s infinite}
+.trsp__burger{display:none;flex-direction:column;gap:5px;width:40px;height:40px;align-items:center;justify-content:center;background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:6px;cursor:pointer}
+.trsp__burger span{width:20px;height:2px;background:var(--navy);transition:transform .3s ease,opacity .3s ease}
+.trsp__burger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.trsp__burger.is-open span:nth-child(2){opacity:0}
+.trsp__burger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.trsp__mobile{position:fixed;top:0;left:0;width:100%;z-index:99;background:rgba(255,255,255,.98);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 20px 40px -24px rgba(22,48,78,.4);padding:88px 26px 26px;display:flex;flex-direction:column;gap:6px;transform:translateY(-110%);transition:transform .42s var(--ease);visibility:hidden}
+.trsp__mobile.is-open{transform:translateY(0);visibility:visible}
+.trsp__mobile a{font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--navy);padding:15px 6px;border-bottom:1px solid var(--line)}
+
+/* ============================ PAGE HERO ============================ */
+.trsp__pagehero{position:relative;padding:150px 48px 80px;background:linear-gradient(170deg,#fff 0%,var(--mist-1) 55%,var(--mist-2) 100%);overflow:hidden}
+.trsp__pagehero .ridge{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.9}
+.trsp__pagehero .ridge [data-layer]{transition:transform .25s ease-out}
+.trsp__pagehero-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto}
+.trsp__pagehero p.sub{font-size:clamp(17px,1.5vw,20px);line-height:1.65;color:var(--ink);max-width:620px;margin-top:24px}
+
+/* ============================ CONTACT SPLIT ============================ */
+.trsp__contact{background:#fff}
+.trsp__contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:54px;max-width:1180px;margin:0 auto;align-items:start}
+
+/* ---- form ---- */
+.trsp__form{display:grid;grid-template-columns:1fr 1fr;gap:22px 20px}
+.trsp__field{display:flex;flex-direction:column;gap:8px}
+.trsp__field.full{grid-column:1 / -1}
+.trsp__field label{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.trsp__field label .req{color:var(--green)}
+.trsp__field input,.trsp__field select,.trsp__field textarea{font-family:inherit;font-size:16px;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:4px;padding:14px 16px;width:100%;transition:border-color .25s ease,box-shadow .25s ease}
+.trsp__field textarea{resize:vertical;min-height:130px;line-height:1.55}
+.trsp__field select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none'><path d='M6 9l6 6 6-6' stroke='%237a8794' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 16px center;padding-right:42px}
+.trsp__field input::placeholder,.trsp__field textarea::placeholder{color:#9aa6b1}
+.trsp__field input:focus,.trsp__field select:focus,.trsp__field textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 4px rgba(124,179,95,.16)}
+.trsp__field.has-error input,.trsp__field.has-error select,.trsp__field.has-error textarea{border-color:var(--err);box-shadow:0 0 0 4px rgba(192,73,47,.12)}
+.trsp__err{font-size:13px;color:var(--err);min-height:1px;display:none}
+.trsp__field.has-error .trsp__err{display:block}
+.trsp__form .submit-wrap{grid-column:1 / -1;margin-top:6px}
+.trsp__form .trsp__btn--primary{width:100%}
+.trsp__form-note{grid-column:1 / -1;font-size:13px;color:var(--muted);margin-top:2px}
+.trsp__success{grid-column:1 / -1;display:none;align-items:center;gap:12px;background:rgba(124,179,95,.12);border:1px solid rgba(79,124,67,.4);color:#2f5a28;border-radius:6px;padding:16px 18px;font-size:15px;font-weight:600}
+.trsp__success.show{display:flex}
+
+/* ---- contact card ---- */
+.trsp__ccard{position:relative;background:linear-gradient(150deg,#1b3a5b,#0d2236);color:#fff;border-radius:12px;padding:40px;overflow:hidden;box-shadow:0 50px 90px -44px rgba(13,34,54,.8)}
+.trsp__ccard .ridge-b{position:absolute;left:0;bottom:0;width:100%;height:130px;opacity:.5;z-index:0}
+.trsp__ccard-inner{position:relative;z-index:2}
+.trsp__ccard-top{display:flex;align-items:center;gap:16px;padding-bottom:26px;margin-bottom:26px;border-bottom:1px solid rgba(255,255,255,.14)}
+.trsp__ccard-top img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex:none;border:2px solid rgba(124,179,95,.5)}
+.trsp__ccard-top .nm{font-family:'Marcellus',serif;font-size:22px;line-height:1.1}
+.trsp__ccard-top .role{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-soft);margin-top:5px}
+.trsp__crow{display:flex;align-items:center;gap:14px;padding:13px 0}
+.trsp__crow .ic{flex:none;display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:rgba(124,179,95,.12);border:1px solid rgba(124,179,95,.3)}
+.trsp__crow .k{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-soft)}
+.trsp__crow .v{font-size:16.5px;color:#fff;font-weight:600;margin-top:2px;transition:color .25s ease}
+.trsp__crow:hover .v{color:var(--green-bright)}
+.trsp__ccard .talk{font-size:15px;line-height:1.6;color:var(--dark-body);margin:24px 0 16px;padding-top:22px;border-top:1px solid rgba(255,255,255,.14)}
+.trsp__ccard .hours{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;color:var(--dark-faint)}
+.trsp__ccard .hours svg{flex:none}
+
+/* ============================ REASSURANCE STRIP ============================ */
+.trsp__reassure{background:var(--mist-1);padding:64px 48px}
+.trsp__reassure-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.trsp__ritem{display:flex;align-items:center;gap:16px}
+.trsp__ritem .ic{flex:none;display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:12px;background:#fff;border:1px solid var(--line)}
+.trsp__ritem .t{font-size:16px;font-weight:800;color:var(--navy)}
+.trsp__ritem .s{font-size:14px;color:var(--ink-soft);margin-top:2px}
+
+/* ============================ FOOTER ============================ */
+.trsp__footer{background:var(--navy-deep);color:#fff;padding:80px 48px 36px;position:relative;overflow:hidden}
+.trsp__footer-inner{max-width:1180px;margin:0 auto;position:relative;z-index:2}
+.trsp__footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:50px;padding-bottom:54px;border-bottom:1px solid rgba(255,255,255,.12)}
+.trsp__footer-logo{height:78px;width:auto;margin-bottom:22px;margin-left:-6px;filter:brightness(0) invert(1)}
+.trsp__footer p{font-size:16px;line-height:1.65;color:var(--dark-faint);max-width:340px}
+.trsp__footer .col-h{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--green-bright);margin-bottom:22px}
+.trsp__footer .links{display:flex;flex-direction:column;gap:14px;font-size:16px;color:var(--dark-body)}
+.trsp__footer .links a{transition:color .25s ease}
+.trsp__footer .links a:hover{color:#fff}
+.trsp__footer .links a.ico{display:flex;align-items:center;gap:11px}
+.trsp__footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:28px}
+.trsp__footer-bottom .a{font-size:13.5px;color:#7d8d9b}
+.trsp__footer-bottom .b{font-size:13px;color:#5f7180}
+
+/* ============================ REVEAL / NO-JS SAFETY ============================ */
+.trsp.js-ready [data-reveal]{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.trsp [data-reveal].is-in{opacity:1;transform:none}
+.trsp.js-ready [data-hx]{opacity:0}
+
+/* ============================ RESPONSIVE ============================ */
+@media(max-width:900px){
+  .trsp__contact-grid{grid-template-columns:1fr;gap:44px}
+  .trsp__reassure-grid{grid-template-columns:1fr;gap:22px}
+}
+@media(max-width:820px){
+  .trsp__navlinks{display:none}
+  .trsp__burger{display:flex}
+  .trsp__nav{padding:14px 22px}
+  .trsp__nav.is-scrolled{padding:10px 22px}
+}
+@media(max-width:760px){
+  .trsp__section{padding:70px 22px}
+  .trsp__pagehero{padding:120px 22px 56px}
+  .trsp__form{grid-template-columns:1fr}
+  .trsp__reassure{padding:54px 22px}
+  .trsp__ccard{padding:30px 26px}
+  .trsp__footer{padding:64px 22px 30px}
+  .trsp__footer-grid{grid-template-columns:1fr;gap:38px}
+}
+@media(prefers-reduced-motion:reduce){
+  .trsp *,.trsp *::before,.trsp *::after{animation:none!important;transition:none!important}
+  .trsp.js-ready [data-reveal],.trsp.js-ready [data-hx]{opacity:1!important;transform:none!important}
+}
+</style>
+
+<div class="trsp" id="trsp-contact">
+<div class="trsp__wrap">
+
+  <!-- ============ NAV ============ -->
+  <nav class="trsp__nav" data-nav>
+    <a href="https://trailsiderisk.com" aria-label="Trailside Risk Partners home"><img class="trsp__logo" src="https://assets.cdn.filesafe.space/xO8DzIlG1uCraZCpNxzO/media/6a43306d3a7f0c5468a30307.png" alt="Trailside Risk Partners"></a>
+    <div class="trsp__navlinks">
+      <a class="trsp__navlink" href="/about">About</a>
+      <a class="trsp__navlink" href="/services">Coverage</a>
+      <a class="trsp__navlink" href="/#approach">Approach</a>
+      <a class="trsp__navlink is-active" href="/contact">Contact</a>
+      <a class="trsp__navcta" href="tel:303-949-1147"><span class="dot"></span>303-949-1147</a>
+    </div>
+    <button class="trsp__burger" data-burger aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="trsp__mobile" data-mobile>
+    <a href="/about">About</a>
+    <a href="/services">Coverage</a>
+    <a href="/#approach">Approach</a>
+    <a href="/contact">Contact</a>
+    <a href="tel:303-949-1147" style="color:var(--green)">Call &middot; 303-949-1147</a>
+  </div>
+
+  <!-- ============ PAGE HERO ============ -->
+  <header class="trsp__pagehero">
+    <svg class="ridge" data-ridge viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="trspRidgeFar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dfe8df"/><stop offset="1" stop-color="#eef3ea"/></linearGradient>
+        <linearGradient id="trspRidgeMid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fb6c2"/><stop offset="1" stop-color="#cdd9d6"/></linearGradient>
+        <linearGradient id="trspRidgeNear" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b3a5b"/><stop offset="1" stop-color="#16304e"/></linearGradient>
+      </defs>
+      <path data-layer="0.04" d="M0,360 L210,210 L330,290 L520,150 L700,290 L860,190 L1040,300 L1230,200 L1440,330 L1440,600 L0,600 Z" fill="url(#trspRidgeFar)" opacity="0.55"/>
+      <path data-layer="0.09" d="M0,460 L240,340 L430,430 L640,300 L840,430 L1080,330 L1280,440 L1440,370 L1440,600 L0,600 Z" fill="url(#trspRidgeMid)" opacity="0.4"/>
+      <path data-layer="0.16" d="M0,560 L260,470 L470,540 L690,450 L900,540 L1150,470 L1440,560 L1440,600 L0,600 Z" fill="url(#trspRidgeNear)" opacity="0.85"/>
+    </svg>
+    <div class="trsp__pagehero-inner">
+      <div class="trsp__eyebrow" data-hx><span class="bar"></span><span class="lbl">Get in touch</span></div>
+      <h1 class="trsp__h1" data-hx>Let's talk about what you're protecting</h1>
+      <p class="sub" data-hx>Tell us a little about you and we'll be in touch quickly &mdash; no pressure, no jargon, just straight answers.</p>
+    </div>
+  </header>
+
+  <!-- ============ CONTACT SPLIT ============ -->
+  <section class="trsp__section trsp__contact">
+    <div class="trsp__contact-grid">
+
+      <!-- LEFT: FORM -->
+      <div data-reveal>
+        <h2 class="trsp__h2" style="margin-bottom:8px">Request a quote</h2>
+        <p style="color:var(--ink-soft);font-size:16px;margin-bottom:30px">Fill out the form and Aaron will reach out personally.</p>
+        <!-- GHL: set action to your form webhook, or replace this whole form with a native GHL Form element -->
+        <form class="trsp__form" data-form action="__GHL_FORM_ACTION__" method="POST" novalidate>
+          <div class="trsp__field" data-fieldwrap>
+            <label for="trsp-name">Full name <span class="req">*</span></label>
+            <input id="trsp-name" name="name" type="text" placeholder="Jane Doe" required data-validate="required">
+            <div class="trsp__err" data-err>Please enter your name.</div>
+          </div>
+          <div class="trsp__field" data-fieldwrap>
+            <label for="trsp-email">Email <span class="req">*</span></label>
+            <input id="trsp-email" name="email" type="email" placeholder="jane@email.com" required data-validate="email">
+            <div class="trsp__err" data-err>Please enter a valid email.</div>
+          </div>
+          <div class="trsp__field" data-fieldwrap>
+            <label for="trsp-phone">Phone</label>
+            <input id="trsp-phone" name="phone" type="tel" placeholder="(303) 555-0100">
+            <div class="trsp__err" data-err></div>
+          </div>
+          <div class="trsp__field" data-fieldwrap>
+            <label for="trsp-interest">I'm interested in</label>
+            <select id="trsp-interest" name="interest">
+              <option value="">Select a coverage&hellip;</option>
+              <option>Homeowners</option>
+              <option>Auto</option>
+              <option>Commercial</option>
+              <option>Workers' Comp</option>
+              <option>Construction</option>
+              <option>Personal Lines</option>
+              <option>Risk Management</option>
+              <option>Not sure yet</option>
+            </select>
+            <div class="trsp__err" data-err></div>
+          </div>
+          <div class="trsp__field full" data-fieldwrap>
+            <label for="trsp-message">Message</label>
+            <textarea id="trsp-message" name="message" placeholder="Tell us a bit about what you'd like to protect&hellip;"></textarea>
+            <div class="trsp__err" data-err></div>
+          </div>
+          <div class="trsp__success" data-success>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#4f7c43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Thanks &mdash; your request is in. Aaron will be in touch shortly.
+          </div>
+          <div class="submit-wrap">
+            <button class="trsp__btn trsp__btn--primary" type="submit">Request my quote <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="trsp__form-note">By submitting, you agree to be contacted about your request. We never sell your information.</div>
+        </form>
+      </div>
+
+      <!-- RIGHT: CONTACT CARD -->
+      <div data-reveal>
+        <div class="trsp__ccard">
+          <svg class="ridge-b" viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true"><path d="M0,200 L120,110 L220,160 L340,90 L450,160 L560,100 L600,140 L600,200Z" fill="rgba(255,255,255,.05)"/><path d="M120,200 C220,150 240,120 360,112 C470,104 500,80 600,72" fill="none" stroke="#7bb35f" stroke-width="3" stroke-dasharray="5 9" stroke-linecap="round" opacity=".45"/></svg>
+          <div class="trsp__ccard-inner">
+            <div class="trsp__ccard-top">
+              <img src="https://assets.cdn.filesafe.space/xO8DzIlG1uCraZCpNxzO/media/6a43306d06fe2e51dce41e9b.jpeg" alt="Aaron Hennings">
+              <div><div class="nm">Aaron Hennings</div><div class="role">Founder &amp; CEO</div></div>
+            </div>
+            <a class="trsp__crow" href="tel:303-949-1147">
+              <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 4h3l1.5 5-2 1.2a12 12 0 005 5l1.2-2 5 1.5v3a2 2 0 01-2.2 2A17 17 0 014.5 6.2 2 2 0 016.5 4z" stroke="#7bb35f" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+              <span><span class="k">Phone</span><span class="v">303-949-1147</span></span>
+            </a>
+            <a class="trsp__crow" href="mailto:aaron@trailsiderisk.com">
+              <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 6 9-6" stroke="#7bb35f" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+              <span><span class="k">Email</span><span class="v">aaron@trailsiderisk.com</span></span>
+            </a>
+            <a class="trsp__crow" href="https://trailsiderisk.com">
+              <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#7bb35f" stroke-width="1.7"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="#7bb35f" stroke-width="1.7"/></svg></span>
+              <span><span class="k">Web</span><span class="v">trailsiderisk.com</span></span>
+            </a>
+            <p class="talk">Prefer to talk it through? Call or email directly &mdash; you'll reach Aaron, not a call center.</p>
+            <div class="hours"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#9fb0bd" stroke-width="1.6"/><path d="M12 7v5l3 2" stroke="#9fb0bd" stroke-width="1.6" stroke-linecap="round"/></svg>Mon&ndash;Fri, 8am&ndash;5pm MT</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ REASSURANCE STRIP ============ -->
+  <section class="trsp__reassure">
+    <div class="trsp__reassure-grid">
+      <div class="trsp__ritem" data-reveal>
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z" stroke="#4f7c43" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><div class="t">Independent &amp; unbiased</div><div class="s">We answer to you, never a single carrier.</div></div>
+      </div>
+      <div class="trsp__ritem" data-reveal>
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12h6l2-5 3 10 2-5h5" stroke="#4f7c43" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><div class="t">Carrier-agnostic advice</div><div class="s">We shop the whole market for the right fit.</div></div>
+      </div>
+      <div class="trsp__ritem" data-reveal>
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0" stroke="#4f7c43" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><div class="t">A real person, every time</div><div class="s">Reach Aaron directly &mdash; no phone trees.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="trsp__footer">
+    <div class="trsp__footer-inner">
+      <div class="trsp__footer-grid">
+        <div>
+          <img class="trsp__footer-logo" src="https://assets.cdn.filesafe.space/xO8DzIlG1uCraZCpNxzO/media/6a27199319b4ff338be5c813.png" alt="Trailside Risk Partners">
+          <p>Independent insurance solutions for businesses, builders, and families. Tailored coverage, honest guidance, and a partner who stands beside you.</p>
+        </div>
+        <div>
+          <div class="col-h">Explore</div>
+          <div class="links">
+            <a href="/about">About</a>
+            <a href="/services">Coverage</a>
+            <a href="/#approach">Our Approach</a>
+            <a href="/contact">Contact</a>
+          </div>
+        </div>
+        <div>
+          <div class="col-h">Get in touch</div>
+          <div class="links">
+            <a class="ico" href="tel:303-949-1147"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 4h3l1.5 5-2 1.2a12 12 0 005 5l1.2-2 5 1.5v3a2 2 0 01-2.2 2A17 17 0 014.5 6.2 2 2 0 016.5 4z" stroke="#7bb35f" stroke-width="1.6" stroke-linejoin="round"/></svg>303-949-1147</a>
+            <a class="ico" href="mailto:aaron@trailsiderisk.com"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 6 9-6" stroke="#7bb35f" stroke-width="1.6" stroke-linejoin="round"/></svg>aaron@trailsiderisk.com</a>
+            <a class="ico" href="https://trailsiderisk.com"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#7bb35f" stroke-width="1.6"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="#7bb35f" stroke-width="1.6"/></svg>trailsiderisk.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="trsp__footer-bottom">
+        <span class="a">&copy; 2026 Trailside Risk Partners &middot; Insurance Solutions. All rights reserved.</span>
+        <span class="b">Independent Insurance Brokerage</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('trsp-contact');
+  if(!root || root.dataset.trspInit) return;
+  root.dataset.trspInit = '1';
+  var $  = function(s,r){return (r||root).querySelector(s);};
+  var $$ = function(s,r){return Array.prototype.slice.call((r||root).querySelectorAll(s));};
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var touch  = window.matchMedia && window.matchMedia('(hover: none)').matches;
+  root.classList.add('js-ready');
+
+  $$('[data-hx]').forEach(function(el,i){ if(reduce){el.style.opacity='1';return;} el.style.animation='trsp-fadeUp .9s cubic-bezier(.2,.8,.2,1) '+(0.12+i*0.12)+'s forwards'; });
+
+  var nav=$('[data-nav]');
+  var onScroll=function(){ nav.classList.toggle('is-scrolled', window.scrollY>40); };
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  var burger=$('[data-burger]'), mobile=$('[data-mobile]');
+  if(burger && mobile){
+    var toggle=function(open){ burger.classList.toggle('is-open',open); mobile.classList.toggle('is-open',open); burger.setAttribute('aria-expanded',open?'true':'false'); };
+    burger.addEventListener('click',function(){ toggle(!mobile.classList.contains('is-open')); });
+    mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ toggle(false); }); });
+  }
+
+  if(!reduce && !touch){
+    var layers=$$('[data-layer]');
+    window.addEventListener('mousemove',function(e){
+      var cx=(e.clientX/window.innerWidth-0.5), cy=(e.clientY/window.innerHeight-0.5);
+      layers.forEach(function(l){ var f=parseFloat(l.getAttribute('data-layer'))*100; l.style.transform='translate('+(cx*f)+'px,'+(cy*f*0.4)+'px)'; });
+    },{passive:true});
+  }
+
+  var revs=$$('[data-reveal]');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(ents){
+      ents.forEach(function(en){
+        if(en.isIntersecting){
+          var el=en.target, sibs=Array.prototype.slice.call(el.parentElement.children).filter(function(c){return c.hasAttribute('data-reveal');}), idx=sibs.indexOf(el);
+          el.style.transitionDelay=(idx>0?Math.min(idx,5)*0.08:0)+'s'; el.classList.add('is-in'); io.unobserve(el);
+        }
+      });
+    },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+    revs.forEach(function(el){io.observe(el);});
+  } else { revs.forEach(function(el){el.classList.add('is-in');}); }
+
+  /* ---- form validation ---- */
+  var form=$('[data-form]');
+  if(form){
+    var emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var validate=function(input){
+      var wrap=input.closest('[data-fieldwrap]'); if(!wrap) return true;
+      var rule=input.getAttribute('data-validate'); var ok=true;
+      if(rule==='required'){ ok=input.value.trim().length>0; }
+      else if(rule==='email'){ ok=emailRe.test(input.value.trim()); }
+      wrap.classList.toggle('has-error',!ok);
+      return ok;
+    };
+    $$('[data-validate]',form).forEach(function(input){
+      input.addEventListener('input',function(){ if(input.closest('[data-fieldwrap]').classList.contains('has-error')) validate(input); });
+      input.addEventListener('blur',function(){ if(input.value.trim()) validate(input); });
+    });
+    form.addEventListener('submit',function(e){
+      var valid=true;
+      $$('[data-validate]',form).forEach(function(input){ if(!validate(input)) valid=false; });
+      if(!valid){ e.preventDefault(); var firstErr=$('.has-error input',form); if(firstErr) firstErr.focus(); return; }
+      // No live endpoint wired? Show inline success instead of navigating to the placeholder.
+      if(form.getAttribute('action')==='__GHL_FORM_ACTION__'){
+        e.preventDefault();
+        var s=$('[data-success]'); if(s) s.classList.add('show');
+        form.querySelector('.submit-wrap').style.display='none';
+      }
+    });
+  }
+})();
+</script>

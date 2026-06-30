@@ -1,0 +1,6 @@
+# Generated local preview (regenerate with ./build-preview.sh)
+preview/
+
+# Local tooling / OS junk
+.claude/
+.DS_Store

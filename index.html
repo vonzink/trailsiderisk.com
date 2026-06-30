@@ -1,0 +1,610 @@
+<!-- =====================================================================
+     TRAILSIDE RISK PARTNERS &mdash; HOME  (paste into a GHL Custom Code / HTML block)
+     Self-contained: all CSS in <style>, all JS in <script>, scoped to .trsp
+     SWAP THESE for your GHL Media Library URLs (find & replace the tokens):
+       https://assets.cdn.filesafe.space/xO8DzIlG1uCraZCpNxzO/media/6a43306d3a7f0c5468a30307.png   = colored logo on light bg   (assets/logo.png)
+       https://assets.cdn.filesafe.space/xO8DzIlG1uCraZCpNxzO/media/6a27199319b4ff338be5c813.png  = white knockout logo         (assets/logo-white.png)
+       https://assets.cdn.filesafe.space/xO8DzIlG1uCraZCpNxzO/media/6a43306d06fe2e51dce41e9b.jpeg = founder headshot 1:1        (assets/aaron.jpeg)
+     Cross-page links use GHL slugs: / &middot; /about &middot; /services &middot; /contact
+===================================================================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+
+<style>
+/* ============================ TOKENS (scoped) ============================ */
+.trsp{
+  --navy:#16304E; --navy-deep:#0D2236; --navy-mid:#1F4063;
+  --green:#4F7C43; --green-bright:#7BB35F; --green-soft:#9FC28A; --green-pale:#DCECCF;
+  --paper:#FFFFFF; --mist-1:#F4F7F3; --mist-2:#EEF3EA; --line:#E6EBE2;
+  --ink:#42566B; --ink-soft:#5A6B7A; --muted:#7A8794; --muted-2:#8A96A2;
+  --dark-body:#C4D2DD; --dark-faint:#9FB0BD;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  font-family:'Mulish',system-ui,sans-serif;
+  color:var(--navy); line-height:1.6; -webkit-font-smoothing:antialiased;
+  position:relative; width:100%; overflow-x:hidden; display:block;
+}
+.trsp *{box-sizing:border-box; margin:0; padding:0}
+:where(.trsp) a{color:inherit; text-decoration:none}
+.trsp img{display:block; max-width:100%}
+.trsp button{font-family:inherit}
+.trsp ::selection{background:var(--green); color:#fff}
+
+/* keyframes prefixed to avoid GHL collisions */
+@keyframes trsp-drawTrail{to{stroke-dashoffset:0}}
+@keyframes trsp-floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes trsp-floatY2{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+@keyframes trsp-fadeUp{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+@keyframes trsp-scrollDot{0%{transform:translateY(0);opacity:1}70%{opacity:1}100%{transform:translateY(18px);opacity:0}}
+
+/* ============================ LAYOUT ============================ */
+.trsp__wrap{position:relative;width:100%;overflow-x:hidden}
+.trsp__inner{max-width:1180px;margin:0 auto;width:100%}
+.trsp__section{padding:130px 48px;position:relative}
+
+/* ============================ EYEBROW ============================ */
+.trsp__eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.trsp__eyebrow.is-center{justify-content:center}
+.trsp__eyebrow .bar{width:34px;height:2px;background:var(--green);flex:none}
+.trsp__eyebrow .lbl{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green)}
+.trsp--ondark .trsp__eyebrow .bar{background:var(--green-bright)}
+.trsp--ondark .trsp__eyebrow .lbl{color:var(--green-soft)}
+
+/* ============================ HEADINGS ============================ */
+.trsp__h1{font-family:'Marcellus',serif;font-weight:400;font-size:clamp(46px,7vw,104px);line-height:.98;letter-spacing:-.01em;color:var(--navy);text-wrap:balance}
+.trsp__h2{font-family:'Marcellus',serif;font-weight:400;font-size:clamp(34px,4.4vw,58px);line-height:1.04;letter-spacing:-.01em;color:var(--navy)}
+.trsp__h3{font-family:'Marcellus',serif;font-weight:400;font-size:25px;color:var(--navy)}
+.trsp--ondark .trsp__h2,.trsp--ondark .trsp__h3{color:#fff}
+
+/* ============================ BUTTONS ============================ */
+.trsp__btn{display:inline-flex;align-items:center;gap:12px;font-weight:700;cursor:pointer;border:none;transition:transform .35s var(--ease),box-shadow .35s ease,background .35s ease}
+.trsp__btn svg{display:block}
+.trsp__btn--primary{background:var(--green);color:#fff;font-size:16px;letter-spacing:.02em;padding:18px 34px;border-radius:3px;box-shadow:0 16px 34px -14px rgba(79,124,67,.7)}
+.trsp__btn--primary .ar{transition:transform .35s ease}
+.trsp__btn--primary:hover{transform:translateY(-3px);box-shadow:0 24px 44px -16px rgba(79,124,67,.8)}
+.trsp__btn--primary:hover .ar{transform:translateX(5px)}
+.trsp__btn--outline{color:var(--navy);font-size:16px;padding:18px 8px}
+.trsp__btn--outline .circ{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--navy);transition:background .3s ease,border-color .3s ease}
+.trsp__btn--outline .circ svg path{transition:stroke .3s ease}
+.trsp__btn--outline:hover .circ{background:var(--navy)}
+.trsp__btn--outline:hover .circ svg path{stroke:#fff}
+
+/* ============================ NAV ============================ */
+.trsp__nav{position:fixed;top:0;left:0;width:100%;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(255,255,255,0);transition:padding .4s ease,background .4s ease,box-shadow .4s ease,backdrop-filter .4s ease}
+.trsp__nav.is-scrolled{background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 8px 30px -18px rgba(22,48,78,.35);padding:10px 48px}
+.trsp__logo{height:58px;width:auto;transition:height .4s ease}
+.trsp__nav.is-scrolled .trsp__logo{height:46px}
+.trsp__navlinks{display:flex;align-items:center;gap:38px}
+.trsp__navlink{font-size:14px;font-weight:700;letter-spacing:.04em;color:var(--navy);text-transform:uppercase;position:relative;padding:4px 0}
+.trsp__navlink::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--green);transition:width .3s ease}
+.trsp__navlink:hover::after{width:100%}
+.trsp__navcta{display:inline-flex;align-items:center;gap:9px;background:var(--navy);color:#fff;font-size:14px;font-weight:700;letter-spacing:.03em;padding:13px 24px;border-radius:2px;box-shadow:0 8px 22px -10px rgba(22,48,78,.6);transition:transform .3s var(--ease),background .3s ease,box-shadow .3s ease}
+.trsp__navcta:hover{transform:translateY(-2px);background:var(--navy-mid);box-shadow:0 14px 30px -12px rgba(22,48,78,.7)}
+.trsp__navcta .dot{width:7px;height:7px;border-radius:50%;background:var(--green-bright);box-shadow:0 0 0 0 rgba(123,179,95,.6);animation:trsp-pulse 2s infinite}
+@keyframes trsp-pulse{0%{box-shadow:0 0 0 0 rgba(123,179,95,.55)}70%{box-shadow:0 0 0 7px rgba(123,179,95,0)}100%{box-shadow:0 0 0 0 rgba(123,179,95,0)}}
+.trsp__burger{display:none;flex-direction:column;gap:5px;width:40px;height:40px;align-items:center;justify-content:center;background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:6px;cursor:pointer}
+.trsp__burger span{width:20px;height:2px;background:var(--navy);transition:transform .3s ease,opacity .3s ease}
+.trsp__burger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.trsp__burger.is-open span:nth-child(2){opacity:0}
+.trsp__burger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.trsp__mobile{position:fixed;top:0;left:0;width:100%;z-index:99;background:rgba(255,255,255,.98);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 20px 40px -24px rgba(22,48,78,.4);padding:88px 26px 26px;display:flex;flex-direction:column;gap:6px;transform:translateY(-110%);transition:transform .42s var(--ease);visibility:hidden}
+.trsp__mobile.is-open{transform:translateY(0);visibility:visible}
+.trsp__mobile a{font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--navy);padding:15px 6px;border-bottom:1px solid var(--line)}
+
+/* ============================ HERO ============================ */
+.trsp__hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:140px 48px 96px;background:linear-gradient(170deg,#fff 0%,var(--mist-1) 52%,var(--mist-2) 100%);overflow:hidden}
+.trsp__ridge{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.trsp__ridge [data-layer]{transition:transform .25s ease-out;will-change:transform}
+.trsp__glow{position:absolute;top:-10%;right:-6%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(124,179,95,.18),transparent 65%);z-index:1;filter:blur(6px);animation:trsp-floatY2 9s ease-in-out infinite}
+.trsp__hero-inner{position:relative;z-index:5;max-width:1180px;margin:0 auto;width:100%}
+.trsp__badge{display:inline-flex;align-items:center;gap:12px;padding:9px 18px;border:1px solid #c9d6c4;border-radius:40px;background:rgba(255,255,255,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);margin-bottom:30px}
+.trsp__badge .dot{width:8px;height:8px;border-radius:50%;background:#5c8a4e;box-shadow:0 0 0 4px rgba(92,138,78,.18)}
+.trsp__badge .lbl{font-size:12.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#3f5a44}
+.trsp__hero h1{margin-bottom:26px}
+.trsp__hero .accent{color:var(--green);position:relative;white-space:nowrap}
+.trsp__hero .accent svg{position:absolute;left:0;bottom:-6px;width:100%;height:14px}
+.trsp__hero p.sub{font-size:clamp(17px,1.5vw,21px);line-height:1.6;color:var(--ink);max-width:560px;margin-bottom:40px}
+.trsp__hero-btns{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.trsp__stats-mini{display:flex;gap:48px;margin-top:64px;flex-wrap:wrap}
+.trsp__stats-mini .num{font-family:'Marcellus',serif;font-size:38px;color:var(--navy);line-height:1}
+.trsp__stats-mini .cap{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.trsp__stats-mini .div{width:1px;background:#d4ddd2}
+.trsp__scrollcue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:8px}
+.trsp__scrollcue .t{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-2)}
+.trsp__scrollcue .mouse{width:24px;height:38px;border:1.5px solid #b3bfc9;border-radius:14px;display:flex;justify-content:center;padding-top:7px}
+.trsp__scrollcue .mouse span{width:4px;height:8px;border-radius:3px;background:var(--green);animation:trsp-scrollDot 1.6s ease-in-out infinite}
+
+/* ============================ AUDIENCE STRIP ============================ */
+.trsp__strip{background:var(--navy);color:#fff;padding:30px 48px;position:relative;overflow:hidden}
+.trsp__strip .pin{position:absolute;inset:0;opacity:.07;background:repeating-linear-gradient(90deg,transparent,transparent 60px,#fff 60px,#fff 61px)}
+.trsp__strip-inner{position:relative;max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.trsp__strip .lbl{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green-soft)}
+.trsp__strip .aud{display:flex;align-items:center;gap:40px;flex-wrap:wrap;font-family:'Marcellus',serif;font-size:clamp(18px,2vw,26px)}
+.trsp__strip .aud .sl{color:var(--green)}
+
+/* ============================ SECTION HEADER ROW ============================ */
+.trsp__head-row{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;flex-wrap:wrap;margin-bottom:64px}
+.trsp__viewall{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:var(--navy);border-bottom:2px solid var(--green);padding-bottom:6px;white-space:nowrap;transition:gap .3s ease}
+.trsp__viewall:hover{gap:16px}
+
+/* ============================ SERVICE CARDS ============================ */
+.trsp__svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.trsp__card{position:relative;display:block;padding:36px 32px 34px;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;transition:transform .45s var(--ease),box-shadow .45s ease,border-color .45s ease}
+.trsp__card:hover{transform:translateY(-8px);box-shadow:0 36px 60px -34px rgba(22,48,78,.42);border-color:#cfe0c4}
+.trsp__card .glow{position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(124,179,95,.16),transparent 70%);opacity:0;transition:opacity .45s ease}
+.trsp__card:hover .glow{opacity:1}
+.trsp__card .ic{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:12px;background:#f1f5ee;margin-bottom:24px;transition:background .4s ease}
+.trsp__card:hover .ic{background:#e3efda}
+.trsp__card h3{position:relative;z-index:2;margin-bottom:12px}
+.trsp__card p{position:relative;z-index:2;font-size:15px;line-height:1.6;color:var(--ink-soft);margin-bottom:22px}
+.trsp__card .more{position:relative;z-index:2;display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--green)}
+.trsp__card .more svg{transition:transform .35s ease}
+.trsp__card:hover .more svg{transform:translateX(4px)}
+.trsp__card .accentbar{position:absolute;left:0;bottom:0;height:3px;width:0;background:linear-gradient(90deg,var(--green),var(--green-bright));transition:width .5s var(--ease)}
+.trsp__card:hover .accentbar{width:100%}
+
+/* ============================ WHY / DIFFERENTIATORS ============================ */
+.trsp__why{background:linear-gradient(180deg,var(--mist-1),var(--mist-2));overflow:hidden}
+.trsp__why .ridge-b{position:absolute;bottom:0;left:0;width:100%;height:260px;opacity:.5;z-index:0}
+.trsp__why-grid{position:relative;z-index:2;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.trsp__feat{display:flex;gap:18px;padding:20px 0;border-top:1px solid #d9e2d4}
+.trsp__feat .ck{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--green);margin-top:2px}
+.trsp__feat .ft{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.trsp__feat .fb{font-size:15.5px;line-height:1.55;color:#56697a}
+.trsp__statgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.trsp__statcard{padding:34px 28px;border-radius:6px}
+.trsp__statcard .n{font-family:'Marcellus',serif;font-size:54px;line-height:1}
+.trsp__statcard .l{font-size:13px;font-weight:700;letter-spacing:.06em;margin-top:8px;line-height:1.4}
+.trsp__statcard.navy{background:var(--navy);color:#fff;box-shadow:0 30px 60px -30px rgba(22,48,78,.6)}
+.trsp__statcard.navy .l{color:var(--green-soft)}
+.trsp__statcard.green{background:var(--green);color:#fff;margin-top:34px;box-shadow:0 30px 60px -30px rgba(79,124,67,.6)}
+.trsp__statcard.green .l{color:var(--green-pale)}
+.trsp__statcard.white{background:#fff;color:var(--navy);border:1px solid #e0e7dd;box-shadow:0 30px 60px -34px rgba(22,48,78,.3)}
+.trsp__statcard.white .l{color:#6a7886}
+.trsp__statcard.white.offset{margin-top:34px}
+
+/* ============================ FOUNDER ============================ */
+.trsp__founder{background:var(--navy);color:#fff;overflow:hidden}
+.trsp__founder .glow{position:absolute;top:-120px;right:-120px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(124,179,95,.16),transparent 65%);z-index:0}
+.trsp__founder-grid{position:relative;z-index:2;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:.85fr 1.15fr;gap:70px;align-items:center}
+.trsp__photo{position:relative}
+.trsp__photo .frame{position:absolute;top:-18px;left:-18px;width:100%;height:100%;border:1.5px solid rgba(124,179,95,.4);border-radius:8px;z-index:0}
+.trsp__photo .img{position:relative;z-index:2;border-radius:8px;overflow:hidden;box-shadow:0 50px 80px -30px rgba(0,0,0,.6)}
+.trsp__photo .img img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.trsp__photo .cap{position:absolute;left:0;bottom:0;width:100%;padding:24px;background:linear-gradient(transparent,rgba(13,34,54,.92))}
+.trsp__photo .cap .nm{font-family:'Marcellus',serif;font-size:26px;line-height:1;color:#fff}
+.trsp__photo .cap .ds{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-soft);margin-top:6px}
+.trsp__founder p{font-size:18px;line-height:1.7;color:var(--dark-body);margin-bottom:24px;max-width:560px}
+.trsp__creds{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0 38px}
+.trsp__creds .pill{padding:11px 20px;border:1px solid rgba(159,194,138,.45);border-radius:40px;font-size:14px;font-weight:800;letter-spacing:.08em;color:var(--green-pale);background:rgba(124,179,95,.08)}
+
+/* ============================ APPROACH / TRAIL ============================ */
+.trsp__approach{background:#fff;overflow:hidden;padding-bottom:150px}
+.trsp__approach-head{text-align:center;max-width:680px;margin:0 auto 80px}
+.trsp__steps-wrap{position:relative}
+.trsp__pathsvg{position:absolute;top:42px;left:0;width:100%;height:120px;z-index:0;display:block}
+.trsp__steps{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.trsp__step{background:#fff;border:1px solid var(--line);border-radius:8px;padding:30px 26px;text-align:center;transition:transform .4s ease,box-shadow .4s ease}
+.trsp__step:hover{transform:translateY(-7px);box-shadow:0 30px 50px -30px rgba(22,48,78,.4)}
+.trsp__step .num{margin:0 auto 18px;display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:var(--navy);color:var(--green-bright);font-family:'Marcellus',serif;font-size:24px;box-shadow:0 14px 26px -12px rgba(22,48,78,.6)}
+.trsp__step h3{margin-bottom:10px}
+.trsp__step p{font-size:14.5px;line-height:1.6;color:var(--ink-soft)}
+
+/* ============================ CTA BAND ============================ */
+.trsp__ctaband{padding:0 48px 120px}
+.trsp__ctapanel{max-width:1180px;margin:0 auto;position:relative;background:linear-gradient(125deg,var(--navy),var(--navy-deep));border-radius:12px;padding:80px 64px;overflow:hidden;box-shadow:0 50px 90px -40px rgba(13,34,54,.7)}
+.trsp__ctapanel .deco{position:absolute;right:0;bottom:0;width:55%;height:100%;opacity:.5;z-index:0}
+.trsp__ctapanel .body{position:relative;z-index:2;max-width:640px}
+.trsp__ctapanel h2{color:#fff;margin-bottom:22px}
+.trsp__ctapanel p{font-size:18px;line-height:1.6;color:var(--dark-body);margin-bottom:40px}
+.trsp__ctapanel .row{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.trsp__phonelink{display:inline-flex;align-items:center;gap:12px;color:#fff;font-size:16px;font-weight:700}
+.trsp__phonelink .circ{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(255,255,255,.4)}
+
+/* ============================ FOOTER ============================ */
+.trsp__footer{background:var(--navy-deep);color:#fff;padding:80px 48px 36px;position:relative;overflow:hidden}
+.trsp__footer-inner{max-width:1180px;margin:0 auto;position:relative;z-index:2}
+.trsp__footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:50px;padding-bottom:54px;border-bottom:1px solid rgba(255,255,255,.12)}
+.trsp__footer-logo{height:78px;width:auto;margin-bottom:22px;margin-left:-6px;filter:brightness(0) invert(1)}
+.trsp__footer p{font-size:16px;line-height:1.65;color:var(--dark-faint);max-width:340px}
+.trsp__footer .col-h{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--green-bright);margin-bottom:22px}
+.trsp__footer .links{display:flex;flex-direction:column;gap:14px;font-size:16px;color:var(--dark-body)}
+.trsp__footer .links a{transition:color .25s ease}
+.trsp__footer .links a:hover{color:#fff}
+.trsp__footer .links a.ico{display:flex;align-items:center;gap:11px}
+.trsp__footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:28px}
+.trsp__footer-bottom .a{font-size:13.5px;color:#7d8d9b}
+.trsp__footer-bottom .b{font-size:13px;color:#5f7180}
+
+/* ============================ REVEAL / NO-JS SAFETY ============================ */
+.trsp.js-ready [data-reveal]{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.trsp [data-reveal].is-in{opacity:1;transform:none}
+.trsp.js-ready [data-hx]{opacity:0}
+
+/* ============================ RESPONSIVE ============================ */
+@media(max-width:1024px){
+  .trsp__svc-grid{grid-template-columns:repeat(2,1fr)}
+  .trsp__steps{grid-template-columns:repeat(2,1fr);gap:20px}
+  .trsp__pathsvg{display:none}
+}
+@media(max-width:900px){
+  .trsp__why-grid,.trsp__founder-grid{grid-template-columns:1fr;gap:48px}
+  .trsp__founder-grid{direction:ltr}
+}
+@media(max-width:820px){
+  .trsp__navlinks{display:none}
+  .trsp__burger{display:flex}
+  .trsp__nav{padding:14px 22px}
+  .trsp__nav.is-scrolled{padding:10px 22px}
+}
+@media(max-width:760px){
+  .trsp__section{padding:74px 22px}
+  .trsp__hero{padding:120px 22px 90px}
+  .trsp__ctaband{padding:0 22px 74px}
+  .trsp__ctapanel{padding:54px 30px}
+  .trsp__strip{padding:26px 22px}
+  .trsp__footer{padding:64px 22px 30px}
+  .trsp__svc-grid{grid-template-columns:1fr}
+  .trsp__steps{grid-template-columns:1fr}
+  .trsp__footer-grid{grid-template-columns:1fr;gap:38px}
+  .trsp__head-row{margin-bottom:44px}
+  .trsp__statcard.green,.trsp__statcard.white.offset{margin-top:0}
+  .trsp__photo .frame{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .trsp *,.trsp *::before,.trsp *::after{animation:none!important;transition:none!important}
+  .trsp.js-ready [data-reveal],.trsp.js-ready [data-hx]{opacity:1!important;transform:none!important}
+}
+</style>
+
+<div class="trsp" id="trsp-home">
+<div class="trsp__wrap">
+
+  <!-- ============ NAV ============ -->
+  <nav class="trsp__nav" data-nav>
+    <a href="https://trailsiderisk.com" aria-label="Trailside Risk Partners home"><img class="trsp__logo" src="https://assets.cdn.filesafe.space/xO8DzIlG1uCraZCpNxzO/media/6a43306d3a7f0c5468a30307.png" alt="Trailside Risk Partners"></a>
+    <div class="trsp__navlinks">
+      <a class="trsp__navlink" href="/about">About</a>
+      <a class="trsp__navlink" href="/services">Coverage</a>
+      <a class="trsp__navlink" href="#approach">Approach</a>
+      <a class="trsp__navlink" href="/contact">Contact</a>
+      <a class="trsp__navcta" href="tel:303-949-1147"><span class="dot"></span>303-949-1147</a>
+    </div>
+    <button class="trsp__burger" data-burger aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="trsp__mobile" data-mobile>
+    <a href="/about">About</a>
+    <a href="/services">Coverage</a>
+    <a href="#approach">Approach</a>
+    <a href="/contact">Contact</a>
+    <a href="tel:303-949-1147" style="color:var(--green)">Call &middot; 303-949-1147</a>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <header class="trsp__hero">
+    <svg class="trsp__ridge" data-ridge viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="trspRidgeFar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dfe8df"/><stop offset="1" stop-color="#eef3ea"/></linearGradient>
+        <linearGradient id="trspRidgeMid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fb6c2"/><stop offset="1" stop-color="#cdd9d6"/></linearGradient>
+        <linearGradient id="trspRidgeNear" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b3a5b"/><stop offset="1" stop-color="#16304e"/></linearGradient>
+        <linearGradient id="trspTrailG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4f7c43"/><stop offset="1" stop-color="#7bb35f"/></linearGradient>
+      </defs>
+      <path data-layer="0.04" d="M0,330 L210,170 L330,250 L520,90 L700,250 L860,140 L1040,270 L1230,150 L1440,300 L1440,600 L0,600 Z" fill="url(#trspRidgeFar)" opacity="0.7"/>
+      <path data-layer="0.09" d="M0,430 L240,300 L430,400 L640,250 L840,400 L1080,290 L1280,410 L1440,330 L1440,600 L0,600 Z" fill="url(#trspRidgeMid)" opacity="0.55"/>
+      <path data-layer="0.16" d="M0,560 L260,430 L470,520 L690,410 L900,520 L1150,440 L1440,540 L1440,600 L0,600 Z" fill="url(#trspRidgeNear)" opacity="0.9"/>
+      <path data-trail d="M120,600 C300,560 250,480 470,470 C690,460 640,400 880,395 C1080,391 1100,350 1320,330" fill="none" stroke="url(#trspTrailG)" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 11" style="filter:drop-shadow(0 2px 6px rgba(79,124,67,.4))"/>
+    </svg>
+    <div class="trsp__glow"></div>
+
+    <div class="trsp__hero-inner">
+      <div class="trsp__badge" data-hx><span class="dot"></span><span class="lbl">Independent Insurance Brokerage</span></div>
+      <h1 class="trsp__h1" data-hx>Navigate risk<br>with a partner<br>who knows the <span class="accent">terrain<svg viewBox="0 0 300 18" preserveAspectRatio="none" aria-hidden="true"><path data-underline d="M2,12 C70,2 150,2 220,9 C255,12 285,9 298,5" fill="none" stroke="#7bb35f" stroke-width="4" stroke-linecap="round"/></svg></span></h1>
+      <p class="sub" data-hx>Trailside Risk Partners builds tailored coverage for businesses, builders, and families &mdash; guided by decades of expertise and a relentless focus on protecting what you've worked to build.</p>
+      <div class="trsp__hero-btns" data-hx>
+        <a class="trsp__btn trsp__btn--primary" href="/contact">Request a Quote <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="trsp__btn trsp__btn--outline" href="/services"><span class="circ"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#16304e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>Explore Coverage</a>
+      </div>
+      <div class="trsp__stats-mini" data-hx>
+        <div><div class="num"><span data-count="20" data-suffix="+">20+</span></div><div class="cap">Years of Expertise</div></div>
+        <div class="div"></div>
+        <div><div class="num"><span data-count="7">7</span></div><div class="cap">Coverage Lines</div></div>
+        <div class="div"></div>
+        <div><div class="num"><span data-count="100" data-suffix="%">100%</span></div><div class="cap">Independent &amp; Unbiased</div></div>
+      </div>
+    </div>
+
+    <div class="trsp__scrollcue">
+      <span class="t">Scroll</span>
+      <div class="mouse"><span></span></div>
+    </div>
+  </header>
+
+  <!-- ============ AUDIENCE STRIP ============ -->
+  <section class="trsp__strip">
+    <div class="pin"></div>
+    <div class="trsp__strip-inner" data-reveal>
+      <span class="lbl">We protect</span>
+      <div class="aud"><span>Businesses</span><span class="sl">/</span><span>Contractors &amp; Builders</span><span class="sl">/</span><span>Families</span></div>
+    </div>
+  </section>
+
+  <!-- ============ COVERAGE / SERVICES ============ -->
+  <section class="trsp__section" id="coverage">
+    <div class="trsp__inner">
+      <div class="trsp__head-row">
+        <div data-reveal>
+          <div class="trsp__eyebrow"><span class="bar"></span><span class="lbl">Coverage Lines</span></div>
+          <h2 class="trsp__h2" style="max-width:620px">Protection mapped to every part of your world</h2>
+        </div>
+        <a class="trsp__viewall" href="/services" data-reveal>View all coverage <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#4f7c43" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="trsp__svc-grid">
+        <!-- cards injected statically below -->
+        <a class="trsp__card" href="/services" data-reveal>
+          <div class="glow"></div>
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-5h6v5" stroke="#4f7c43" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3 class="trsp__h3">Commercial</h3>
+          <p>Property, liability, fleet, and umbrella coverage engineered around how your business actually operates.</p>
+          <span class="more">Learn more <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#4f7c43" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="accentbar"></span>
+        </a>
+        <a class="trsp__card" href="/services" data-reveal>
+          <div class="glow"></div>
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z M9 12l2 2 4-4" stroke="#4f7c43" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3 class="trsp__h3">Workers' Comp</h3>
+          <p>Compliant, cost-controlled programs with a CWCA in your corner to manage claims and experience mods.</p>
+          <span class="more">Learn more <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#4f7c43" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="accentbar"></span>
+        </a>
+        <a class="trsp__card" href="/services" data-reveal>
+          <div class="glow"></div>
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 20h20M4 20V10l5-3 5 3M14 20V13l4-2 2 1.2V20M7 13h0M7 16h0" stroke="#4f7c43" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3 class="trsp__h3">Construction (CRIS)</h3>
+          <p>Builders risk, contractor liability, and bonding from a Construction Risk &amp; Insurance Specialist.</p>
+          <span class="more">Learn more <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#4f7c43" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="accentbar"></span>
+        </a>
+        <a class="trsp__card" href="/services" data-reveal>
+          <div class="glow"></div>
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6" stroke="#4f7c43" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3 class="trsp__h3">Homeowners</h3>
+          <p>Protect your home, belongings, and liability with coverage that reflects true replacement value.</p>
+          <span class="more">Learn more <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#4f7c43" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="accentbar"></span>
+        </a>
+        <a class="trsp__card" href="/services" data-reveal>
+          <div class="glow"></div>
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 13l2-5h14l2 5v5h-3M3 13v5h3M3 13h18M7 18a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM20 18a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" stroke="#4f7c43" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3 class="trsp__h3">Auto</h3>
+          <p>Personal and commercial auto with the right limits, the right carriers, and claims support that shows up.</p>
+          <span class="more">Learn more <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#4f7c43" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="accentbar"></span>
+        </a>
+        <a class="trsp__card" href="/services" data-reveal>
+          <div class="glow"></div>
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l2.5 6H21l-5 4 2 7-6-4-6 4 2-7-5-4h6.5z" stroke="#4f7c43" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3 class="trsp__h3">Personal Lines</h3>
+          <p>Umbrella, valuables, and specialty coverage that wraps around your whole financial picture.</p>
+          <span class="more">Learn more <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#4f7c43" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="accentbar"></span>
+        </a>
+        <a class="trsp__card" href="/services" data-reveal>
+          <div class="glow"></div>
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z M12 8v5M12 16h0" stroke="#4f7c43" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3 class="trsp__h3">Risk Management</h3>
+          <p>A CRM-led review of your exposures with a roadmap to close gaps before they become claims.</p>
+          <span class="more">Learn more <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#4f7c43" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="accentbar"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY TRAILSIDE ============ -->
+  <section class="trsp__section trsp__why">
+    <svg class="ridge-b" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true"><path d="M0,260 L260,140 L470,230 L690,120 L900,230 L1150,150 L1440,250 L1440,400 L0,400 Z" fill="#dfe8df"/></svg>
+    <div class="trsp__why-grid">
+      <div data-reveal>
+        <div class="trsp__eyebrow"><span class="bar"></span><span class="lbl">Why Trailside</span></div>
+        <h2 class="trsp__h2" style="margin-bottom:26px">An independent guide, not a vendor</h2>
+        <p style="font-size:18px;line-height:1.65;color:var(--ink);margin-bottom:30px;max-width:520px">As an independent brokerage, we answer to you &mdash; never a single carrier. We shop the market, pressure-test your exposures, and engineer coverage that holds when it matters.</p>
+        <div>
+          <div class="trsp__feat"><span class="ck"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><div class="ft">Carrier-agnostic advice</div><div class="fb">We compare the whole market so your coverage fits you, not a quota.</div></div></div>
+          <div class="trsp__feat"><span class="ck"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><div class="ft">Technical depth</div><div class="fb">CRM, CIC, CRIS, and CWCA designations behind every recommendation.</div></div></div>
+          <div class="trsp__feat"><span class="ck"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><div class="ft">Claims advocacy</div><div class="fb">When a claim hits, we stand between you and the carrier.</div></div></div>
+        </div>
+      </div>
+      <div data-reveal>
+        <div class="trsp__statgrid">
+          <div class="trsp__statcard navy"><div class="n"><span data-count="20" data-suffix="+">20+</span></div><div class="l">Years guiding clients through risk</div></div>
+          <div class="trsp__statcard green"><div class="n"><span data-count="40" data-suffix="+">40+</span></div><div class="l">Carrier relationships shopped for you</div></div>
+          <div class="trsp__statcard white"><div class="n"><span data-count="98" data-suffix="%">98%</span></div><div class="l">Client retention, year over year</div></div>
+          <div class="trsp__statcard white offset"><div class="n"><span data-count="24" data-suffix="/7">24/7</span></div><div class="l">Claims advocacy when you need it</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOUNDER ============ -->
+  <section class="trsp__section trsp__founder trsp--ondark" id="founder">
+    <div class="glow"></div>
+    <div class="trsp__founder-grid">
+      <div class="trsp__photo" data-reveal>
+        <div class="frame"></div>
+        <div class="img">
+          <img src="https://assets.cdn.filesafe.space/xO8DzIlG1uCraZCpNxzO/media/6a43306d06fe2e51dce41e9b.jpeg" alt="Aaron Hennings, Founder &amp; CEO">
+          <div class="cap"><div class="nm">Aaron Hennings</div><div class="ds">Founder &amp; CEO &middot; CRM &middot; CIC &middot; CRIS &middot; CWCA</div></div>
+        </div>
+      </div>
+      <div data-reveal>
+        <div class="trsp__eyebrow"><span class="bar"></span><span class="lbl">Meet the Founder</span></div>
+        <h2 class="trsp__h2" style="margin-bottom:26px">Built on relationships,<br>earned through results</h2>
+        <p>Aaron Hennings founded Trailside Risk Partners on a simple belief: insurance should be a relationship, not a transaction. With designations spanning risk management, construction, and workers' compensation, Aaron brings rare technical depth to every client conversation.</p>
+        <p>He partners with each client to map exposures, close gaps, and stand beside them through every claim &mdash; so you can move forward with confidence.</p>
+        <div class="trsp__creds"><span class="pill">CRM</span><span class="pill">CIC</span><span class="pill">CRIS</span><span class="pill">CWCA</span></div>
+        <a class="trsp__btn trsp__btn--primary" href="/about">Learn more about Aaron <svg class="ar" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ APPROACH / TRAILSIDE PATH ============ -->
+  <section class="trsp__section trsp__approach" id="approach">
+    <div class="trsp__inner">
+      <div class="trsp__approach-head" data-reveal>
+        <div class="trsp__eyebrow is-center"><span class="bar"></span><span class="lbl">The Trailside Path</span><span class="bar"></span></div>
+        <h2 class="trsp__h2">A clear route from exposure to protected</h2>
+      </div>
+      <div class="trsp__steps-wrap">
+        <svg class="trsp__pathsvg" viewBox="0 0 1180 120" preserveAspectRatio="none" aria-hidden="true"><path data-approach-path d="M40,80 C260,20 320,110 560,60 C800,10 860,110 1140,50" fill="none" stroke="#cfe0c4" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/></svg>
+        <div class="trsp__steps">
+          <div class="trsp__step" data-reveal><div class="num">01</div><h3 class="trsp__h3">Listen</h3><p>We learn your business, your assets, and what keeps you up at night.</p></div>
+          <div class="trsp__step" data-reveal><div class="num">02</div><h3 class="trsp__h3">Map</h3><p>A full review of exposures &mdash; finding the gaps before they find you.</p></div>
+          <div class="trsp__step" data-reveal><div class="num">03</div><h3 class="trsp__h3">Engineer</h3><p>We shop the market and build coverage tailored to your real risk.</p></div>
+          <div class="trsp__step" data-reveal><div class="num">04</div><h3 class="trsp__h3">Stand by</h3><p>Ongoing reviews and claims advocacy for the life of the relationship.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA BAND ============ -->
+  <section class="trsp__ctaband">
+    <div class="trsp__ctapanel trsp--ondark" data-reveal>
+      <svg class="deco" viewBox="0 0 600 300" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><path d="M0,300 L120,160 L220,230 L340,120 L450,230 L560,150 L600,200 L600,300 Z" fill="#1f4063"/><path data-approach-path d="M120,300 C220,250 240,210 360,200 C470,191 500,160 600,150" fill="none" stroke="#4f7c43" stroke-width="4" stroke-dasharray="5 9" stroke-linecap="round"/></svg>
+      <div class="body">
+        <h2 class="trsp__h2">Ready to find out where you're exposed?</h2>
+        <p>Start with a no-pressure conversation. We'll review your current coverage, flag the gaps, and show you what better looks like.</p>
+        <div class="row">
+          <a class="trsp__btn trsp__btn--primary" href="/contact">Request a Quote <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="trsp__phonelink" href="tel:303-949-1147"><span class="circ"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 4h3l1.5 5-2 1.2a12 12 0 005 5l1.2-2 5 1.5v3a2 2 0 01-2.2 2A17 17 0 014.5 6.2 2 2 0 016.5 4z" stroke="#7bb35f" stroke-width="1.8" stroke-linejoin="round"/></svg></span>303-949-1147</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="trsp__footer">
+    <div class="trsp__footer-inner">
+      <div class="trsp__footer-grid">
+        <div>
+          <img class="trsp__footer-logo" src="https://assets.cdn.filesafe.space/xO8DzIlG1uCraZCpNxzO/media/6a27199319b4ff338be5c813.png" alt="Trailside Risk Partners">
+          <p>Independent insurance solutions for businesses, builders, and families. Tailored coverage, honest guidance, and a partner who stands beside you.</p>
+        </div>
+        <div>
+          <div class="col-h">Explore</div>
+          <div class="links">
+            <a href="/about">About</a>
+            <a href="/services">Coverage</a>
+            <a href="#approach">Our Approach</a>
+            <a href="/contact">Contact</a>
+          </div>
+        </div>
+        <div>
+          <div class="col-h">Get in touch</div>
+          <div class="links">
+            <a class="ico" href="tel:303-949-1147"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 4h3l1.5 5-2 1.2a12 12 0 005 5l1.2-2 5 1.5v3a2 2 0 01-2.2 2A17 17 0 014.5 6.2 2 2 0 016.5 4z" stroke="#7bb35f" stroke-width="1.6" stroke-linejoin="round"/></svg>303-949-1147</a>
+            <a class="ico" href="mailto:aaron@trailsiderisk.com"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 6 9-6" stroke="#7bb35f" stroke-width="1.6" stroke-linejoin="round"/></svg>aaron@trailsiderisk.com</a>
+            <a class="ico" href="https://trailsiderisk.com"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#7bb35f" stroke-width="1.6"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="#7bb35f" stroke-width="1.6"/></svg>trailsiderisk.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="trsp__footer-bottom">
+        <span class="a">&copy; 2026 Trailside Risk Partners &middot; Insurance Solutions. All rights reserved.</span>
+        <span class="b">Independent Insurance Brokerage</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('trsp-home');
+  if(!root || root.dataset.trspInit) return;
+  root.dataset.trspInit = '1';
+  var $  = function(s,r){return (r||root).querySelector(s);};
+  var $$ = function(s,r){return Array.prototype.slice.call((r||root).querySelectorAll(s));};
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var touch  = window.matchMedia && window.matchMedia('(hover: none)').matches;
+
+  root.classList.add('js-ready');
+
+  /* ---- hero entrance ---- */
+  $$('[data-hx]').forEach(function(el,i){
+    if(reduce){el.style.opacity='1';return;}
+    el.style.animation='trsp-fadeUp .9s cubic-bezier(.2,.8,.2,1) '+(0.15+i*0.13)+'s forwards';
+  });
+
+  /* ---- underline draw ---- */
+  var underline = $('[data-underline]');
+  if(underline && !reduce){
+    try{ var L=underline.getTotalLength(); underline.style.strokeDasharray=L; underline.style.strokeDashoffset=L; underline.style.animation='trsp-drawTrail 1.1s ease 1.1s forwards'; }catch(e){}
+  }
+
+  /* ---- nav condense ---- */
+  var nav = $('[data-nav]');
+  var onScroll = function(){ if(window.scrollY>40){nav.classList.add('is-scrolled');} else {nav.classList.remove('is-scrolled');} };
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* ---- mobile menu ---- */
+  var burger=$('[data-burger]'), mobile=$('[data-mobile]');
+  if(burger && mobile){
+    var toggle=function(open){ burger.classList.toggle('is-open',open); mobile.classList.toggle('is-open',open); burger.setAttribute('aria-expanded',open?'true':'false'); };
+    burger.addEventListener('click',function(){ toggle(!mobile.classList.contains('is-open')); });
+    mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ toggle(false); }); });
+  }
+
+  /* ---- ridge parallax ---- */
+  if(!reduce && !touch){
+    var layers=$$('[data-layer]');
+    window.addEventListener('mousemove',function(e){
+      var cx=(e.clientX/window.innerWidth-0.5), cy=(e.clientY/window.innerHeight-0.5);
+      layers.forEach(function(l){ var f=parseFloat(l.getAttribute('data-layer'))*100; l.style.transform='translate('+(cx*f)+'px,'+(cy*f*0.4)+'px)'; });
+    },{passive:true});
+  }
+
+  /* ---- reveal observer ---- */
+  var revs=$$('[data-reveal]');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(ents){
+      ents.forEach(function(en){
+        if(en.isIntersecting){
+          var el=en.target;
+          var sibs=Array.prototype.slice.call(el.parentElement.children).filter(function(c){return c.hasAttribute('data-reveal');});
+          var idx=sibs.indexOf(el);
+          el.style.transitionDelay=(idx>0?Math.min(idx,5)*0.08:0)+'s';
+          el.classList.add('is-in'); io.unobserve(el);
+        }
+      });
+    },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+    revs.forEach(function(el){io.observe(el);});
+  } else { revs.forEach(function(el){el.classList.add('is-in');}); }
+
+  /* ---- count up (markup holds final value; reset to 0 then animate) ---- */
+  var fmt=function(v,suf){ return v + suf; };
+  if('IntersectionObserver' in window && !reduce){
+    var counted=new Set();
+    $$('[data-count]').forEach(function(el){ var suf=el.getAttribute('data-suffix')||''; el.textContent='0'+suf; });
+    var cio=new IntersectionObserver(function(ents){
+      ents.forEach(function(en){
+        if(en.isIntersecting && !counted.has(en.target)){
+          counted.add(en.target);
+          var el=en.target, target=parseFloat(el.getAttribute('data-count')), suf=el.getAttribute('data-suffix')||'', dur=1400, t0=performance.now();
+          var tick=function(t){ var p=Math.min((t-t0)/dur,1), e=1-Math.pow(1-p,3); el.textContent=fmt(Math.round(target*e),suf); if(p<1)requestAnimationFrame(tick); };
+          requestAnimationFrame(tick); cio.unobserve(el);
+        }
+      });
+    },{threshold:0.6});
+    $$('[data-count]').forEach(function(el){cio.observe(el);});
+  }
+
+  /* ---- approach trail brighten ---- */
+  var aps=$$('[data-approach-path]');
+  if(aps.length && 'IntersectionObserver' in window){
+    var apio=new IntersectionObserver(function(ents){
+      ents.forEach(function(en){ if(en.isIntersecting){ var p=en.target; p.style.transition='stroke .6s ease'; p.setAttribute('stroke','#7bb35f'); apio.unobserve(p); } });
+    },{threshold:0.4});
+    aps.forEach(function(p){apio.observe(p);});
+  }
+})();
+</script>
